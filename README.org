@@ -19,6 +19,43 @@
        :after (org-capture which-func))
    #+end_src
 
+* Usage
+  Call =show-your-work-kill-snippet= with your point inside a function or with a
+  region selected. Using this repo as an example, calling the function with
+  point on line 36 in =./show-your-work.el= will push the following =org= markup
+  onto the kill ring:
+  #+begin_src org
+
+  [[https://github.com/0x6362/show-your-work.el/blob/main/show-your-work.el#L35-L37][show-your-work.el:35]] // ~show-your-work--git-link-available-p~
+#+begin_src elisp
+(defun show-your-work--git-link-available-p ()
+  "Check if git-link is available for use."
+  (fboundp 'git-link))
+#+end_src
+  #+end_src
+
+  Similarly, with a region:
+  #+begin_src org
+  [[https://github.com/0x6362/show-your-work.el/blob/main/show-your-work.el#L35-L45][show-your-work.el:35]] // ~show-your-work--git-link-copy-url-only~
+  #+begin_src elisp
+    (defun show-your-work--git-link-available-p ()
+      "Check if git-link is available for use."
+      (fboundp 'git-link))
+
+    (defun show-your-work--git-link-copy-url-only ()
+      "Get a permalink via git-link if available."
+      (if (show-your-work--git-link-available-p)
+          (let (git-link-open-in-browser)
+            (call-interactively 'git-link)
+            (pop kill-ring))
+        (error "Install git-link.el to use this functionality")))
+  #+end_src
+  #+end_src
+
+  Because I have =git-link= available in my emacs, a link to the file on the
+  currently active git branch on the remote git forge is included in the
+  snippet.
+
 # Local Variables:
 # mode: org
 # End:
