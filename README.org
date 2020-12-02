@@ -1,0 +1,24 @@
+#+TITLE:     show-your-work README
+#+AUTHOR:    Cate B.
+#+EMAIL:     0x6362@users.noreply.github.com
+
+** Features
+   - Quickly grab regions of code, functions, or whole buffers with a link back to the source to insert into org-documents or org-capture blocks
+   - include a link to the region or function in your git forge with [[https://github.com/sshaw/git-link][git-link.el]] (requires installation of git-link)
+
+** Installation
+   Not yet on MELPA - clone it into your elisp load path for now!
+
+   Example Configuration with [[https://github.com/jwiegley/use-package][use-package]]:
+
+   #+begin_src emacs-lisp
+     (use-package show-your-work
+       :commands show-your-work-kill-snippet
+       :defer t
+       :bind (:map ctrl-x-map ("y" . show-your-work-kill-snippet))
+       :after (org-capture which-func))
+   #+end_src
+
+# Local Variables:
+# mode: org
+# End:
